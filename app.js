@@ -1,4 +1,5 @@
 const express = require("express");
+const {pokemonRoute} = require("./routes/pokemon")
 
 const PORT = 4000;
 
@@ -30,16 +31,6 @@ app.get("/search", (req, res) => {
     res.send(filtered)
 })
 
-app.post("/add", (req,res) => {
-    let list = allPokemon
-    console.log(req)
-    list.push(req.body)
-    res.send(list)
-})
-
-app.delete("/pokemon/:id", (req,res) => {
-    let list = allPokemon
-    list = list.filter(pokemon => {return (pokemon.id !== req.params.id)})
-})
+app.use("/pokemons", pokemonRoute)
 
 app.listen(PORT, () => console.log(`Server up and running at port ${PORT}`));
